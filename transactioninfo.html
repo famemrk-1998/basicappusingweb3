@@ -8,31 +8,32 @@
             web3.setProvider(new
             web3.providers.HttpProvider('http://localhost:8545'));
 
-            function getTransaction(transactionhash) {
-                
-                web3.eth.getTransaction(transactionhash, (err, hash) => {
-                    if (err) {
-                        document.getElementById('hash').innerHTML = err;       
-                    }   
-                    else {
-                        var str = '';
-                        for(var key in hash) {
-                            str += '<tr><td>' + key + '</td><td>' + JSON.stringify(hash[key]) + '</td></tr>'; 
-                        }
-                        document.getElementById('hash').innerHTML = '<table>' + str + '</table>';
-                    }     
-                });
-            }
+             function getTransaction() {
+                 
+               Hash = document.getElementById('Hash').value;
+               web3.eth.getTransaction(Hash, (err, transactionInfo) => {
+                   if (err) {
+                       document.getElementById('transactionInfo').innerHTML = err;
+                   }
+                   else {
+                       var str = '';
+                       for(var key in transactionInfo) {
+                           str += '<tr><td>' + key + '</td><td>' + JSON.stringify(transactionInfo[key]) + '</td></tr>';
+                       }
+                       document.getElementById('transactionInfo').innerHTML = '<table>' + str + '</table>';
+                   }
+               });
+             }
         </script>
     </head>
     <body>
         <h1>Transaction Information</h1>
         <hr>
         <label>Enter Transaction hash: </label>
-        <input type="text" id="transactionhash"/>
+        <input type="text" id="Hash"/>
         <br>
-        <button type="button" onclick="getTransaction(document.getElementById('hash').value)">Get Transaction</button>
+        <button type="button" onclick="getTransaction()">Get Transaction</button>
         <hr>
-        <div id="hash"></div>
+        <div id="transactionInfo"></div>
     </body>
 </html>

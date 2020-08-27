@@ -2,27 +2,32 @@
     <head>
         <script src="web3.js"></script>
         <script>
-            // var Web3 = require('web3');
-            // var web3 = new Web3();
-            // //connect to the node
-            // web3.setProvider(new
-            // web3.providers.HttpProvider('http://localhost:8545'));
-
-            // function getTransaction(transactionhash) {
-                
-            //     web3.eth.getTransaction(transactionhash, (err, hash) => {
-            //         if (err) {
-            //             document.getElementById('hash').innerHTML = err;       
-            //         }   
-            //         else {
-            //             var str = '';
-            //             for(var key in hash) {
-            //                 str += '<tr><td>' + key + '</td><td>' + JSON.stringify(hash[key]) + '</td></tr>'; 
-            //             }
-            //             document.getElementById('hash').innerHTML = '<table>' + str + '</table>';
-            //         }     
-            //     });
-            // }
+            var Web3 = require('web3');
+            var web3 = new Web3();
+            //connect to the node
+            web3.setProvider(new
+            web3.providers.HttpProvider('http://localhost:8545'));
+            //Account address
+            var accounts;
+            onload = function getAccounts() {
+                web3.eth.getAccounts((error, accs) => {
+                    if (error) {
+                        document.getElementById('address').innerHTML =  error;
+                    }
+                    else {
+                        accounts = accs;
+                        document.getElementById('address').innerHTML = web3.eth.accounts[0]
+                        web3.eth.getBalance(web3.eth.accounts[0], (error, balance) => {
+                        if(error) {
+                        document.getElementById('balance').innerHTML =  error;
+                        }
+                        else {
+                        document.getElementById('balance').innerHTML =  web3.fromWei(balance,"ether") + ' ether';
+                        }
+                    })
+                    }
+                })
+            }
         </script>
     </head>
     <body>
@@ -30,17 +35,17 @@
         <h1>Money Transfer</h1>
         <hr>
         <p><b>Main Account Info</b></p>
-        <p>Address: </p>
-        <p>Balance: </p>
+        <p><span>Address : </span><span id="address"></span></p>
+        <p><span>balance : </span><span id="balance"></span></p>
         <label>Transfer to: </label>
         <input type="text" id="transferto"/>
         <label>Amount (ether): </label>
-        <input type="text" id="amount"/>
+        <input type="number" id="amount"/>
         <label>Pass pharase: </label>
-        <input type="text" id="pass"/>
+        <input type="password" id="pass"/>
         <br>
-        <button type="button" onclick="getTransaction(document.getElementById('hash').value)">Send</button>
+        <button type="button" onclick="sendTransaction()">Send</button>
         <hr>
-        <div id="hash"></div>
+        <p><span id="transactionHash"></span></p>
     </body>
 </html>
