@@ -28,6 +28,20 @@
                     }
                 })
             }
+            //Send transaction
+            function sendTransaction() {
+                transferto = document.getElementById("transferto").value
+                amount = document.getElementById("amount").value
+                pass = document.getElementById("pass").value
+                web3.personal.sendTransaction({from: accounts[0], to: transferto, value: web3.toWei(amount, "ether")}, pass, (error, transactionHash) => {
+                    if (error) {
+                        document.getElementById('transactionHash').innerHTML = error;
+                    }
+                    else {
+                        document.getElementById('transactionHash').innerHTML = 'Transaction Hash : ' + transactionHash;
+                    }
+                })
+            }
         </script>
     </head>
     <body>
