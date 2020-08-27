@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script src="web3.js"></script>
+        <script>
+            var Web3 = require('web3');
+            var web3 = new Web3();
+            //connect to the node
+            web3.setProvider(new
+            web3.providers.HttpProvider('http://localhost:8545'));
+
+            function getTransaction(transactionhash) {
+                
+                web3.eth.getTransaction(transactionhash, (err, hash) => {
+                    if (err) {
+                        document.getElementById('hash').innerHTML = err;       
+                    }   
+                    else {
+                        var str = '';
+                        for(var key in hash) {
+                            str += '<tr><td>' + key + '</td><td>' + JSON.stringify(hash[key]) + '</td></tr>'; 
+                        }
+                        document.getElementById('hash').innerHTML = '<table>' + str + '</table>';
+                    }     
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Transaction Information</h1>
+        <hr>
+        <label>Enter Transaction hash: </label>
+        <input type="text" id="transactionhash"/>
+        <br>
+        <button type="button" onclick="getTransaction(document.getElementById('hash').value)">Get Transaction</button>
+        <hr>
+        <div id="hash"></div>
+    </body>
+</html>

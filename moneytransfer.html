@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="web3.js"></script>
+        <script>
+            // var Web3 = require('web3');
+            // var web3 = new Web3();
+            // //connect to the node
+            // web3.setProvider(new
+            // web3.providers.HttpProvider('http://localhost:8545'));
+
+            // function getTransaction(transactionhash) {
+                
+            //     web3.eth.getTransaction(transactionhash, (err, hash) => {
+            //         if (err) {
+            //             document.getElementById('hash').innerHTML = err;       
+            //         }   
+            //         else {
+            //             var str = '';
+            //             for(var key in hash) {
+            //                 str += '<tr><td>' + key + '</td><td>' + JSON.stringify(hash[key]) + '</td></tr>'; 
+            //             }
+            //             document.getElementById('hash').innerHTML = '<table>' + str + '</table>';
+            //         }     
+            //     });
+            // }
+        </script>
+    </head>
+    <body>
+        <h1>Node 1</h1>
+        <h1>Money Transfer</h1>
+        <hr>
+        <p><b>Main Account Info</b></p>
+        <p>Address: </p>
+        <p>Balance: </p>
+        <label>Transfer to: </label>
+        <input type="text" id="transferto"/>
+        <label>Amount (ether): </label>
+        <input type="text" id="amount"/>
+        <label>Pass pharase: </label>
+        <input type="text" id="pass"/>
+        <br>
+        <button type="button" onclick="getTransaction(document.getElementById('hash').value)">Send</button>
+        <hr>
+        <div id="hash"></div>
+    </body>
+</html>
